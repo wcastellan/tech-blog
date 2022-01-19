@@ -11,6 +11,19 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+    Comment.findAll({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbCommentData => res.json(dbCommentData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+});
+
 router.post('/', withAuth, (req, res) => {
     Comment.create({
         comment_text: req.body.comment_text,
@@ -21,6 +34,28 @@ router.post('/', withAuth, (req, res) => {
     .catch(err => {
         console.log(err);
         res.status(400).json(err);
+    });
+});
+
+router.put('/:id', withAuth, (req, res) => {
+    Comment.update({
+        comment_text: req.body.comment_text
+    },
+    {
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbCommentData => {
+        if (!dbCommentData) {
+            res.status(404).json({ message: 'No comment found with this id' });
+            return;
+        }
+        res.json(dbCommentData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     });
 });
 
