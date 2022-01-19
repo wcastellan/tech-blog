@@ -6,7 +6,13 @@ async function deleteFormHandler(event) {
     ];
 
     const response = await fetech(`/api/posts/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        body: JSON.stringify({
+            post_id: id
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
 
     if (response.ok) {
