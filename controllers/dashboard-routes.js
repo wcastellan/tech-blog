@@ -2,7 +2,6 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
-
 router.get('/', withAuth, (req, res) => {
     Post.findAll({
             where: {
@@ -37,7 +36,6 @@ router.get('/', withAuth, (req, res) => {
             res.status(500).json(err);
         });
 });
-
 router.get('/edit/:id', withAuth, (req, res) => {
     Post.findOne({
             where: {
@@ -76,9 +74,10 @@ router.get('/edit/:id', withAuth, (req, res) => {
             res.status(500).json(err);
         });
 })
-
 router.get('/new', (req, res) => {
     res.render('new-post');
 });
+
+
 
 module.exports = router;

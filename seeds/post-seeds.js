@@ -20,4 +20,4 @@ const postData = [{
 
 const seedPosts = () => Post.bulkCreate(postData);
 
-module.exports = seedPost
+module.exports = seedPosts;

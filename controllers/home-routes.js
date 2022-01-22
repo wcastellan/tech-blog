@@ -1,7 +1,6 @@
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 const router = require('express').Router();
-
 router.get('/', (req, res) => {
     Post.findAll({
             attributes: [
@@ -87,7 +86,6 @@ router.get('/post/:id', (req, res) => {
             res.status(500).json(err);
         });
 });
-
 router.get('/posts-comments', (req, res) => {
     Post.findOne({
             where: {
